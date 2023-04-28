@@ -1,4 +1,4 @@
-export const constant_CPAMM_address = "0x0E855D534D9ea5B4836e5Da0d1b8939aC9AEFc79"
+export const constant_CPAMM_address = "0xCC28B73897A1d403abdA5925480630f9cdb84A8B"
 export const constant_CPAMM_abi = [
   {
     "inputs": [

@@ -69,7 +69,6 @@ function App() {
     const signer = provider.getSigner()
 
     const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
-    
     const resp = await contract.swap(document.getElementById('address').value, document.getElementById('amount').value);
     setTransactionData(resp.hash);
   }
@@ -110,7 +109,7 @@ function App() {
 
     const resp = await contract.reserve0()
     
-    alert(resp/1000000000000000000)
+    alert(resp)
   }  
 
   const getreserve1 = async ()=>{
@@ -121,7 +120,7 @@ function App() {
 
     const resp = await contract.reserve1()
     
-    alert(resp/1000000000000000000)
+    alert(resp)
   }  
 
 
@@ -171,6 +170,7 @@ function App() {
                     className="input is-medium"
                     type="text"
                     placeholder="Enter your token amount for exchange"
+                    defaultValue={'1000000000000000000'}
                   />  
                 </div>
               </div>
@@ -186,12 +186,14 @@ function App() {
                     className="input is-medium"
                     type="text"
                     placeholder="Enter your RVT amount for adding liquidity"
+                    defaultValue={'1000000000000000000'}
                   />
                   <input
                     id = "MTT"
                     className="input is-medium"
                     type="text"
                     placeholder="Enter your MTT amount for adding liquidity"
+                    defaultValue={'1000000000000000000'}
                   />  
                 </div>
               <div className="column">
