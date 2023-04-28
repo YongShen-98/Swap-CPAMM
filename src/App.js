@@ -5,8 +5,6 @@ import {constant_CPAMM_abi, constant_CPAMM_address} from "./ethereum/swapcpamm";
 
 function App() {
   const [walletAddress, setWalletAddress] = useState("");
-  const [signer, setSigner] = useState();
-  const [Contract, setContract] = useState();
   const [transactionData, setTransactionData] = useState("");
 
   useEffect(() => {
@@ -66,9 +64,7 @@ function App() {
     }
   };
 
-  const swap = async ()=>{
-    alert(document.getElementById('address').value);
-    
+  const swap = async ()=>{  
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
 
@@ -77,6 +73,59 @@ function App() {
     const resp = await contract.swap(document.getElementById('address').value, document.getElementById('amount').value);
     setTransactionData(resp.hash);
   }
+
+  const add = async ()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
+
+    const resp = await contract.addLiquidity(document.getElementById('RVT').value, document.getElementById('MTT').value);
+    setTransactionData(resp.hash);
+  }
+
+  const shares = async ()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
+    const resp = await contract.balanceOf(document.getElementById('balance').value);
+    alert("shares :"+resp);
+  }
+  
+  const remove = async ()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
+
+    const resp = await contract.removeLiquidity    
+  }
+
+  const getreserve0 = async ()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
+
+    const resp = await contract.reserve0()
+    
+    alert(resp/1000000000000000000)
+  }  
+
+  const getreserve1 = async ()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
+
+    const resp = await contract.reserve1()
+    
+    alert(resp/1000000000000000000)
+  }  
+
+
+
 
   return (
     <div>
@@ -121,7 +170,7 @@ function App() {
                     id = "amount"
                     className="input is-medium"
                     type="text"
-                    placeholder="Enter your token amount for exchange "
+                    placeholder="Enter your token amount for exchange"
                   />  
                 </div>
               </div>
@@ -130,6 +179,68 @@ function App() {
                     Swap button
                   </button>
                 </div>
+
+              <div className="column is-fifths-fifths">
+                  <input
+                    id = "RVT"
+                    className="input is-medium"
+                    type="text"
+                    placeholder="Enter your RVT amount for adding liquidity"
+                  />
+                  <input
+                    id = "MTT"
+                    className="input is-medium"
+                    type="text"
+                    placeholder="Enter your MTT amount for adding liquidity"
+                  />  
+                </div>
+              <div className="column">
+                  <button className="button is-link is-medium" onClick = {add}>
+                    Adding button
+                  </button>
+                </div>
+              
+              <div className="column is-fifths-fifths">
+                  <input
+                    id = "balance"
+                    className="input is-medium"
+                    type="text"
+                    placeholder="Checking shares of address input"
+                    defaultValue={walletAddress}
+                  />  
+                </div>
+              <div className="column">
+                  <button className="button is-link is-medium" onClick = {shares}>  
+                    Getting shares
+                  </button>
+                </div>
+          
+                <div className="column is-fifths-fifths">
+                  <input
+                    id = "Rem"
+                    className="input is-medium"
+                    type="text"
+                    placeholder="Enter your shares for removing liquidity"
+                  />  
+                </div>
+              <div className="column">
+                  <button className="button is-link is-medium" onClick = {remove}>
+                    Removing button
+                  </button>
+                </div>
+                <div className="columns">
+                <div className="column">
+                  <button className="button is-link is-medium" onClick = {getreserve0}>
+                    RVT 
+                  </button>
+                  </div>
+                <div className="column">
+                  <button className="button is-link is-medium" onClick = {getreserve1}>
+                    MTT
+                  </button>
+                </div>
+                </div>
+
               <article className="panel is-grey-darker">
                 <p className="panel-heading">Transaction Data</p>
                 <div className="panel-block">
