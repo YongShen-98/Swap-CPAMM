@@ -1,4 +1,4 @@
-export const constant_CPAMM_address = "0xCC28B73897A1d403abdA5925480630f9cdb84A8B"
+export const constant_CPAMM_address = "0xDD6aD4EcEA8fd757085812876FA2B7aA38A1308E"
 export const constant_CPAMM_abi = [
   {
     "inputs": [
@@ -57,6 +57,80 @@ export const constant_CPAMM_abi = [
       }
     ],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_tokenIn_u",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amountIn_u",
+        "type": "uint256"
+      }
+    ],
+    "name": "calculateAdd",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "calculateamount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "check",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_amount0",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_amount1",
+        "type": "uint256"
+      }
+    ],
+    "name": "funcheck",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {

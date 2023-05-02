@@ -89,18 +89,9 @@ function App() {
 
     const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
     const resp = await contract.balanceOf(document.getElementById('balance').value);
-    alert("shares :"+resp);
+    alert("shares :"+resp/10**18);
   }
   
-  const remove = async ()=>{
-    const provider = new ethers.providers.Web3Provider(window.ethereum)
-    const signer = provider.getSigner()
-
-    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
-
-    const resp = await contract.removeLiquidity    
-  }
-
   const getreserve0 = async ()=>{
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     const signer = provider.getSigner()
@@ -109,7 +100,7 @@ function App() {
 
     const resp = await contract.reserve0()
     
-    alert(resp)
+    alert(resp/10**18)
   }  
 
   const getreserve1 = async ()=>{
@@ -120,10 +111,29 @@ function App() {
 
     const resp = await contract.reserve1()
     
-    alert(resp)
+    alert(resp/10**18)
   }  
 
+  const compute = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
 
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
+
+    const resp = await contract.calculateAdd(document.getElementById('computeAddress').value, document.getElementById('computeAmount').value)
+    const r = await contract.calculateamount()
+    alert(r);
+  }
+
+  const remove = async ()=>{
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
+
+    await contract.removeLiquidity(document.getElementById('Remove').value)
+
+  }
 
 
   return (
@@ -180,6 +190,26 @@ function App() {
                   </button>
                 </div>
 
+                <div className="column is-fifths-fifths">
+                  <input
+                    id = "computeAddress"
+                    className="input is-medium"
+                    type="text"
+                    placeholder="address input"
+                  />
+                  <input
+                    id = "computeAmount"
+                    className="input is-medium"
+                    type="text"
+                    placeholder="amount input"
+                  />    
+                </div>
+                <div className="column">
+                  <button className="button is-link is-medium" onClick = {compute}>
+                    Compute button
+                  </button>
+                </div>
+
               <div className="column is-fifths-fifths">
                   <input
                     id = "RVT"
@@ -219,10 +249,11 @@ function App() {
           
                 <div className="column is-fifths-fifths">
                   <input
-                    id = "Rem"
+                    id = "Remove"
                     className="input is-medium"
                     type="text"
                     placeholder="Enter your shares for removing liquidity"
+                    defaultValue={'1000000000000000000'}
                   />  
                 </div>
               <div className="column">
