@@ -120,9 +120,17 @@ function App() {
 
     const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
 
-    const resp = await contract.calculateAdd(document.getElementById('computeAddress').value, document.getElementById('computeAmount').value)
+    await contract.calculateAdd(document.getElementById('computeAddress').value, document.getElementById('computeAmount').value)
+  }
+
+  const getresult = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract(constant_CPAMM_address,constant_CPAMM_abi,signer)
     const r = await contract.calculateamount()
     alert(r);
+
   }
 
   const remove = async ()=>{
@@ -206,7 +214,10 @@ function App() {
                 </div>
                 <div className="column">
                   <button className="button is-link is-medium" onClick = {compute}>
-                    Compute button
+                    Compute
+                  </button>
+                  <button className="button is-link is-medium" style={{ marginLeft: 10 }} onClick = {getresult}>
+                    Result
                   </button>
                 </div>
 
