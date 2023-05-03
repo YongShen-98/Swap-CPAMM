@@ -286,11 +286,9 @@ function App() {
                 </div>
 
               <article className="panel is-grey-darker">
-                <p className="panel-heading">Transaction Data</p>
+                <p className="panel-heading">Exchange Address</p>
                 <div className="panel-block">
-                  <p>{transactionData
-                      ? `Transaction hash: ${transactionData}`
-                      : "--"}
+                  <p>0xDD6aD4EcEA8fd757085812876FA2B7aA38A1308E
                   </p>
                 </div>
               </article>
